@@ -1,8 +1,8 @@
 ## DynusT parser
 
 Inputs: `output_vehicle.dat.bz2`, `vehTrajectory.dat.bz2`,
-`links.csv`; optional input: `elecIDs.txt`.  Outputs: `linkVMT.csv`
-and `linkData.csv`.
+`links.csv`; optional input: `elecIDs.txt`.  Outputs: `linkVMT.csv`,
+`linkData.csv`, and `numberOfTrips.csv`.
 
 ### Requirements
 1. `csv.h` from [https://github.com/ben-strasser/fast-cpp-csv-parser](https://github.com/ben-strasser/fast-cpp-csv-parser) placed into the source code directory.
@@ -57,3 +57,6 @@ The program `volumes.exe` will output two comma separated value files.
    simulation time window.  Metrics include: VMT, delay, signalDelay,
    and toll (if present in `VehTrajectory.dat`).  All metrics are
    available by vehicle type.
+3. `numberOfTrips.csv` contains the total number of trips in the
+   roster by vehicle type, after the trips with IDs in the
+   `elecIDs.txt` have been removed.
