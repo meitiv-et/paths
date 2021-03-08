@@ -20,16 +20,16 @@ Should yield an executable `volumes.exe`
 ### Input preparation
 1. Make a working directory and copy DynusT's outputs into it.  Compress with bzip2.
 2. Prepare `links.csv` with a row for each link in the network with
-column names: "linkID","roadTypeID","fips","length","speedLimit".
-       1. "linkID" is a composed from the IDs of the origin and destination
-       	  nodes separated by a dash, e.g. "2342-5673".
-       2. "roadTypeID" is the EPA MOVES road types: you will need to
-       	  develop a mapping from the DynusT road types to the MOVES
+   column names: "linkID","roadTypeID","fips","length","speedLimit".
+   1. "linkID" is a composed from the IDs of the origin and destination
+	  nodes separated by a dash, e.g. "2342-5673".
+   2. "roadTypeID" is the EPA MOVES road types: you will need to
+      develop a mapping from the DynusT road types to the MOVES
 	  road types.
-       3. "fips" is the 5 digit county identifier into which most of the
-       	  link happens fall.
-       4. "length" is in miles.
-       5. "speedLimit" is in mph.
+   3. "fips" is the 5 digit county identifier into which most of the
+	  link happens fall.
+   4. "length" is in miles.
+   5. "speedLimit" is in mph.
 3. Optionally, one may prepare `elecIDs.txt` which contains the list
 of vehicle IDs (one per line) to be removed from the DynusT roster
 before computing the aggregate link VMT.
