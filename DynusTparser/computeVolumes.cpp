@@ -408,7 +408,7 @@ public:
   void readLinkInfo() {
     CSVReader<5, trim_chars<' '> > in("links.csv");
     in.read_header(ignore_extra_column,
-		   "linkID","roadTypeID","fips","length","speedLimit");
+		   "linkID","roadTypeID","countyID","length","speedLimit");
     int roadType;
     int fips;
     double length,speed;
