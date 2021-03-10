@@ -1,0 +1,5 @@
+pandas
+smart_open
+geopandas
+joblib
+yaml
