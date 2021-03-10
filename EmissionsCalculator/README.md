@@ -26,12 +26,21 @@ source types.
    - yearID (4 digit year)
 3. The on-road vehile mix CSV must have the following columns:
    - yearID (4 digit year)
-   - dayOfTheWeek ("WK","SA","SU")
+   - dayOfTheWeek with possible values of [WK|FR|SA|"SU"] (WK refers
+     to Monday through Thursday (inclusive)
    - roadTypeID
    - sourceTypeID
    - countyID (5 digit FIPS)
    - VMTmix : fractions that must add up to 1 for every combination of
      all other attributes fixed *except* sourceTypeID
+4. `vehTypeMap.yaml` which cointains the mapping from the DynusT's
+   vehicle types to MOVES source type ID groups in yaml format.  For
+   example:
+	```yaml
+	1:[11,21,31,32]
+	2:[51,52,53,54]
+	3:[61,62]
+	```
 
 ### Output
 

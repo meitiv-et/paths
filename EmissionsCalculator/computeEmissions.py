@@ -7,6 +7,7 @@ import pandas as pd
 from smart_open import open
 import geopandas as gpd
 from joblib import Parallel,delayed
+import yaml
 
 def groupRates(rates,vmx,srcTypeGroup,countyID,
                hourID,roadTypeID,avgSpeedBin):
@@ -81,7 +82,7 @@ def main(argv):
     vmt = vmt.rename(columns = {'timeIntervalID':'hourID'})
 
     # read the vehType to sourceType map
-    vehTypeMap = yaml.load(open('vehTypeMap.yaml').read())
+    vehTypeMap = yaml.load(open('vehTypeMap.yaml'))
 
     # filter on year
     rates = rates.query(f'yearID == {year}').drop(columns = ['yearID'])
