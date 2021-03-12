@@ -13,3 +13,6 @@ emissions and the dispersion of PM2.5
    on-road vehicle mix, and emission rates into the total emissions
    for each link in the network sliced by the MOVES source type, fuel
    type, and pollutant.
+3. `TransformMovesMatrix`: code to transform the MOVES matrix
+   emissions rates from being binned by operation mode to being binned
+   by speed using the MOVES default operation mode distribution.
