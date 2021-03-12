@@ -4,7 +4,7 @@ The script in this directory transforms the MOVES matrix emission
 rates from being sliced by the vehicle operating mode to being sliced
 by velocity bins using the MOVES defaut operating mode distribution.
 
-# Resources and input preparation
+### Resources and input preparation
 1. Download the Excel dataset
    `s3://tti-data/MOVES/moves_matrix_coverage_04-15-2020.xlsx`.  The
    `IM_fuel` sheet contains the mapping from counties to fuel mix and
@@ -32,16 +32,19 @@ by velocity bins using the MOVES defaut operating mode distribution.
    - ageID: age of the vehicle
    - ageFraction: given fixed yearID and sourceTypeID, ageFractions
      must add up to 1.
-4. Let's assume that all of the MOVES files are in the directory
-   called MOVES.  Then the MOVES transformer is run as follows:
-   ```bash
-   $ python3 transformMoves.py 48137,48167 2020 7 MOVES
-   ```
-   The first command line argument is the comma separated list of
-   county FIPS, the second and third are the year and month of the
-   scenario and the last is the path to the directory where all of the
-   MOVES rates as well as the auxiliary files reside.  The script will
-   output a single csv with transformed rates named
-   `movesRates_YEAR-MONTH_FIPSLIST.csv` where YEAR and MONTH are those 
-   supplied on the command line and FIPSLIST is dash delimited list of
-   the supplied FIPS.
+
+### Running the transformer.
+Let's assume that all of the MOVES files are in the directory called
+MOVES.  Then the MOVES transformer is run as follows:
+
+```bash
+$ python3 transformMoves.py 48137,48167 2020 7 MOVES
+```
+
+The first command line argument is the comma separated list of county
+FIPS, the second and third are the year and month of the scenario and
+the last is the path to the directory where all of the MOVES rates as
+well as the auxiliary files reside.  The script will output a single
+csv with transformed rates named `movesRates_YEAR-MONTH_FIPSLIST.csv`
+where YEAR and MONTH are those supplied on the command line and
+FIPSLIST is dash delimited list of the supplied FIPS.
