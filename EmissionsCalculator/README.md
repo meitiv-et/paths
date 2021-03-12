@@ -9,7 +9,8 @@ source types.
 
 ### Input preparation
 
-1. `linkVMT.csv` produced by the DynusT parser can use used as is.
+1. `linkVMT.csv` produced by the DynusT parser can use used as is
+   (leave it in the working directory).
 2. The emission rates CSV must be prepared with the following columns
    whose meaning is parallel to those in the EPA MOVES model
    documentation:
@@ -20,7 +21,7 @@ source types.
    - hourID
    - roadTypeID
    - sourceTypeID
-   - fuelTypeID (1 - gasolune, 2 - diesel)
+   - fuelTypeID (1 - gasoline, 2 - diesel)
    - ratePerDistance (in gram/mile)
    - countyID (5 digit county FIPS)
    - yearID (4 digit year)
@@ -34,8 +35,8 @@ source types.
    - VMTmix : fractions that must add up to 1 for every combination of
      all other attributes fixed *except* sourceTypeID
 4. `vehTypeMap.yaml` which cointains the mapping from the DynusT's
-   vehicle types to MOVES source type ID groups in yaml format.  For
-   example:
+   vehicle types to MOVES source type ID groups in yaml format.  It
+   must be placed in the working directory.  For example:
 	```yaml
 	1:[11,21,31,32]
 	2:[51,52,53,54]
@@ -48,13 +49,16 @@ The script requires 4 command line arguments:
 - pathToVMXcsv
 - pathToRatesCSV
 - year
-- numberOfCPUs (number of CPU cores to run on).  For example
+- numberOfCPUs (number of CPU cores to run on).  For example, while in
+the working directory, assuming that `computeEmissions.py`, `vmx.csv`,
+and `rates.csv` are in the parent directory:
 ```bash
-$ python3 computeEmissions.py ../vmx.csv ../rates.csv 2020 18
+$ cd ProjectDirectory
+$ python3 ../computeEmissions.py ../vmx.csv ../rates.csv 2020 18
 ```
-The single output of the script is `emissions_year.csv` where year is
+The single output of the script is `emissions_YEAR.csv` where YEAR is
 replaced by the 4 digit year supplied on the command line.  The
-columns are 
+columns are:
 - linkID composed of the origin and destination node IDs separated by
   a dash
 - pollutantID 
