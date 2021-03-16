@@ -16,3 +16,5 @@ emissions and the dispersion of PM2.5
 3. `TransformMovesMatrix`: code to transform the MOVES matrix
    emissions rates from being binned by operation mode to being binned
    by speed using the MOVES default operation mode distribution.
+4. `AERMET`: a pipeline for preparing meteorological inputs required
+   for running AERMOD.
