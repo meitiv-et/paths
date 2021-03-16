@@ -1,0 +1,6 @@
+requests
+geopandas
+geopy
+timezonefinder
+pytz
+rtree

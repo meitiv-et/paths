@@ -1,0 +1,8 @@
+STARTEND {start_month} {start_year} {end_month} {end_year}
+IFWGROUP {ifw_status} {comm_month} {comm_day} {comm_year}
+DATAFILE STARTING
+   {input_file}
+DATAFILE FINISHED
+OUTFILES STARTING
+   HOURFILE {hour_file}
+OUTFILES FINISHED
