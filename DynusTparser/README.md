@@ -39,9 +39,20 @@ should yield an executable `volumes.exe`
 	  link happens to fall.
    - "length" is in miles.
    - "speedLimit" is in mph.
-3. Optionally, one may prepare `elecIDs.txt` which contains the list
-of vehicle IDs (one per line) to be removed from the DynusT roster
-before computing the aggregate link VMT.
+   This repository contains a python3 script `makeLinks.py` which can
+   be used to transform the DynaStudio links `shapefile` into the
+   `csv` needed by the parser.  To use this script first install
+   geopandas
+   ```bash
+   $ pip3 install -r requirements.txt
+   ```
+   and then run
+   ```bash
+   $ python3 makeLinks.py pathToShapeFile
+   ```
+3. Optionally, one may prepare `elecIDs.txt` containing a list of
+vehicle IDs (one per line) to be removed from the DynusT roster before
+computing the aggregate link VMT.
 
 ### Running the parser
 
