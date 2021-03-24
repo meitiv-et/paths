@@ -159,10 +159,14 @@ class ISD(object):
         self.best = self.candidates.sort_values(
             'SORT'
         ).iloc[-1].squeeze()
+
+        # output the ID
+        self.dataPath = f'{self.best.USAF}{str(self.best.WBAN).zfill(5)}'
+        with open('bestSurfaceStation.txt','w') as f:
+            f.write(self.dataPath)
     
 
     def getAndSaveSurfaceData(self):
-        self.dataPath = f'{self.best.USAF}{str(self.best.WBAN).zfill(5)}'
         fn = f'{self.best.USAF}-{str(self.best.WBAN).zfill(5)}-{self.year}.gz'
         with open(self.dataPath,'wb') as out:
             with FTP(self.host,'anonymous') as ftp:

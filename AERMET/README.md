@@ -52,16 +52,19 @@ $ fortran -O2 -o ../aerminute aerminute_15272.for
 ```bash
 $ pip3 install -r requirements.txt
 ```
-6. Download the NLCD data from https://mrlc.gov/viewer by drawing a
-   rectangle over the study area and selecting the 2016 Tree Canopy,
-   Land Cover, and Impervious datasets.  When you receive email with
-   the download link, download the zip archive
+6. Download the National Land Cover Database (NLCD) data from
+   https://mrlc.gov/viewer using the data download tool (clicking on
+   an icon that looks like a down pointing arrow in a circle) to draw
+   a rectangle bigger than the study area and selecting the 2016 Tree
+   Canopy, Land Cover, and Impervious datasets.  You receive an email
+   with the download link for the zip archive with all of the data
    (e.g. NLCD_m7XNYdavHDHGq4P0NPji.zip).
 
 ### Running the pipeline
 
 The bash script `runPipeline.sh` requires 5 command line arguments:
-year, month, latitude, longitude, and the path to the downloaded NLCD zip archive
+year, month, latitude, longitude, and the path to the downloaded NLCD
+zip archive
 .  For example:
 ```bash
 $ bash runPipeline.sh 2018 7 38.9996681 -77.0449321 ~/Downloads/NLCD_m7XNYdavHDHGq4P0NPji.zip
@@ -69,7 +72,9 @@ $ bash runPipeline.sh 2018 7 38.9996681 -77.0449321 ~/Downloads/NLCD_m7XNYdavHDH
 If successful, it generates 4 outputs:
 - bestSurfElev.txt contains the elevation above sea level in
   meters of the best match surface weather station
-- bestUpperWBAN.txt contains the WBAN of the best match upper air
+- bestUpperStation.txt contains the WBAN-WMO of the best match upper air
   monitoring weather station
+- bestSurfaceStation.txt with the USAF-WBAN of the best match surface
+  station
 - AERMETSURFACE.SFC is the surface data input for AERMOD
 - AERMETUPPER.PFL is the upper air profile input for AERMOD

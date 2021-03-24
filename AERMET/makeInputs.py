@@ -31,8 +31,8 @@ rsd.bestStation(lat,lon)
 print('Getting upper air data for',rsd.best.WBAN)
 rsd.saveData()
 rsd.makeStage1Input()
-with open('bestUpperWBAN.txt','w') as f:
-    f.write(rsd.best.WBAN)
+with open('bestUpperStation.txt','w') as f:
+    f.write(f'{rsd.best.WBAN.zfill(5)}{rsd.best.WMO.zfill(5)}')
 
 # get timezone
 from timezonefinder import TimezoneFinder
