@@ -1,0 +1,33 @@
+CO STARTING
+   TITLEONE  {title}
+   MODELOPT  CONC FLAT FASTALL
+   RUNORNOT  RUN
+   AVERTIME  24 PERIOD
+   URBANOPT  {population}
+   FLAGPOLE  1.5
+   POLLUTID  {pollutant}
+CO FINISHED
+
+SO STARTING
+{sourceLocation}
+{sourceParam}
+{urbanSource}
+SO SRCGROUP ALL
+SO FINISHED
+
+RE STARTING
+{receptorCoords}
+RE FINISHED
+
+ME STARTING 
+   SURFFILE  {pathToSurf}
+   PROFFILE  {pathToUpper}
+   SURFDATA  {stanumSurf} {year}
+   UAIRDATA  {stanumAir} {year}
+   PROFBASE  {profbase}  METERS
+   STARTEND  {year} {month} {day} {year} {month} {day}
+ME FINISHED
+
+OU STARTING
+   POSTFILE  24 ALL PLOT {postfile}
+OU FINISHED
