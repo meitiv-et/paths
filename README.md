@@ -18,3 +18,7 @@ emissions and the dispersion of PM2.5
    by speed using the MOVES default operation mode distribution.
 4. `AERMET`: a pipeline for preparing meteorological inputs required
    for running AERMOD.
+5. `AERMOD`: a pipeline to create sources and receptors using the
+   transportation network links and emissions, run AERMOD and produce
+   a dataset with receptorIDs, locations and 24 hour average PM2.5
+   concentrations.
