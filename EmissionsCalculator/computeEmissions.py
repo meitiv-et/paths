@@ -10,19 +10,19 @@ from joblib import Parallel,delayed
 import yaml
 
 def groupRates(rates,vmx,srcTypeGroup,countyID,
-               hourID,roadTypeID,avgSpeedBin):
+               timeIntervalID,roadTypeID,avgSpeedBin):
     # filter the rates
     rateSubset = rates[
         (rates.sourceTypeID.isin(srcTypeGroup)) &
         (rates.countyID == countyID) &
         (rates.roadTypeID == roadTypeID) &
-        (rates.hourID == hourID) &
+        (rates.timeIntervalID == timeIntervalID) &
         (rates.avgSpeedBinID == avgSpeedBin)
     ]
     # filter the vmx
     vmxSubset = vmx[
         (vmx.sourceTypeID.isin(srcTypeGroup)) &
-        (vmx.hourID == hourID) &
+        (vmx.timeIntervalID == timeIntervalID) &
         (vmx.roadTypeID == roadTypeID) &
         (vmx.countyID == countyID)
     ]
@@ -35,7 +35,7 @@ def groupRates(rates,vmx,srcTypeGroup,countyID,
     rateSubset['emRate'] = rateSubset.ratePerDistance*\
                            rateSubset.VMTmix/vmxSubset.VMTmix.sum()
     return rateSubset.groupby(
-        ['countyID','hourID','pollutantID','sourceTypeID',
+        ['countyID','timeIntervalID','pollutantID','sourceTypeID',
          'fuelTypeID','roadTypeID','avgSpeedBinID']
     ).emRate.sum().reset_index()
 
@@ -44,7 +44,7 @@ def processGroup(rates,vmx,vmap,dmap,vt,hour,speed,rt,fips,group):
     grRate = groupRates(rates,vmx,vmap[vt],fips,dmap[fips],hour,rt,speed)
     group = group.drop(columns = ['vehType']).merge(
         grRate,
-        on = ['hourID','avgSpeedBinID','roadTypeID','countyID']
+        on = ['timeIntervalID','avgSpeedBinID','roadTypeID','countyID']
     )
     group['emquant'] = group.vmt*group.emRate
     return group.groupby(
@@ -78,8 +78,8 @@ def main(argv):
         print('Intervals other than 60 min long not yet implemented')
         sys.exit(1)
 
-    # rename timeIntervalID hourID
-    vmt = vmt.rename(columns = {'timeIntervalID':'hourID'})
+    # rename timeIntervalID timeIntervalID
+    vmt = vmt.rename(columns = {'timeIntervalID':'timeIntervalID'})
 
     # read the vehType to sourceType map
     vehTypeMap = yaml.load(open('vehTypeMap.yaml'))
@@ -112,15 +112,15 @@ def main(argv):
     # filter on year and weekday
     vmx = vmx.query(f'yearID == {selectYear} & dayOfTheWeek == "WK"')
     
-    # vmx needs to have hourID,countyID columns
+    # vmx needs to have timeIntervalID,countyID columns
 
     # group by
-    # ['vehType','hourID','avgSpeedBinID','roadTypeID','countyID']
+    # ['vehType','timeIntervalID','avgSpeedBinID','roadTypeID','countyID']
     # and compute the average rate for each group
     results = Parallel(n_jobs = numCPU)(
         delayed(processGroup)(rates,vmx,vehTypeMap,distMap,*k,g)
         for k,g in vmt.groupby(
-            ['vehType','hourID','avgSpeedBinID',
+            ['vehType','timeIntervalID','avgSpeedBinID',
              'roadTypeID','countyID']
         )
     )
