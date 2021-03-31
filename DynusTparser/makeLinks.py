@@ -5,7 +5,7 @@ if len(sys.argv) != 2:
     print('Usage:',sys.argv[0],'pathToDynaStudioShapeFile')
     sys.exit(1)
 
-epsg = 3082
+epsg = 3082 # this projected EPSG is in meters
 import geopandas as gpd
 shp = gpd.read_file(sys.argv[1]).to_crs(epsg = epsg)
 
@@ -29,10 +29,8 @@ shp['roadTypeID'] = shp['#LTYPE'].apply(
     lambda ID: 4 if ID in [1,2,6,7,8,9,10] else 5
 )
 
-# compute the length in epsg = 3082 for Texas
-shp = shp.to_crs(epsg = 3082)
-milesInFoot = 0.0001893939393939394
-shp['length'] = shp.geometry.length*milesInFoot
+milesInMeter = 0.000621371
+shp['length'] = shp.geometry.length*milesInMeter
 
 # rename columns
 shp = shp.rename(columns = {'#SPEED':'speedLimit','#LANES':'numLanes'})
