@@ -23,22 +23,7 @@ $ gfortran -O2 -o ../aermet *.o
 $ wget --no-check-certificate https://gaftp.epa.gov/Air/aqmg/SCRAM/models/related/aersurface/aersurface_source.zip
 $ unzip aersurface_source.zip
 $ cd aersurface_source_code
-$ export COMPILE_FLAGS="-fbounds-check -Wuninitialized -O2"
-$ gfortran -c $COMPILE_FLAGS mod_StartVars.f
-$ gfortran -c $COMPILE_FLAGS mod_Constants.f
-$ gfortran -c $COMPILE_FLAGS mod_UserParams.f
-$ gfortran -c $COMPILE_FLAGS mod_FileUnits.f
-$ gfortran -c $COMPILE_FLAGS mod_ErrorHandling.f
-$ gfortran -c $COMPILE_FLAGS mod_Geographic.f
-$ gfortran -c $COMPILE_FLAGS mod_ProcCtrlFile.f
-$ gfortran -c $COMPILE_FLAGS mod_LandCoverParams.f
-$ gfortran -c $COMPILE_FLAGS mod_TiffTags.f
-$ gfortran -c $COMPILE_FLAGS mod_TiffParams.f
-$ gfortran -c $COMPILE_FLAGS mod_InitTiffParams.f
-$ gfortran -c $COMPILE_FLAGS mod_GetData.f
-$ gfortran -c $COMPILE_FLAGS mod_AvgParams.f
-$ gfortran -c $COMPILE_FLAGS mod_SfcChars.f
-$ gfortran -c $COMPILE_FLAGS aersurface.f
+$ gfortran -fbounds-check -Wuninitialized -O2 -c mod_StartVars.f mod_Constants.f mod_UserParams.f mod_FileUnits.f mod_ErrorHandling.f mod_Geographic.f mod_ProcCtrlFile.f mod_LandCoverParams.f mod_TiffTags.f mod_TiffParams.f mod_InitTiffParams.f mod_GetData.f mod_AvgParams.f mod_SfcChars.f aersurface.f
 $ gfortran -o ../aersurface -O2 *.o
 ```
 4. Download and compile AERMINUTE
