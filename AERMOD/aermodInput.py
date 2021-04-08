@@ -14,7 +14,10 @@ import hashlib
 import os
 from aermodConst import *
 
-aermodTemplate = open('AERMOD_input_template.txt').read()
+aermodTemplate = open(os.path.join(
+    os.path.split(__file__)[0],
+    'AERMOD_input_template.txt'
+)).read()
 
 # functions for parallel receptor checking
 output = mp.SimpleQueue()
