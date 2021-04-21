@@ -486,7 +486,7 @@ public:
     }
     ofstream fh;
     fh.open("numberOfTrips.csv");
-    fh << "vehTypeDynusT,numTrips\n";
+    fh << "vehType,numTrips\n";
     for (auto [vehType,num] : numberOfTrips) {
       fh << vehType << "," << num << endl;
     }
