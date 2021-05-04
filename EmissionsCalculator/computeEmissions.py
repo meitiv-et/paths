@@ -8,6 +8,7 @@ from smart_open import open
 import geopandas as gpd
 from joblib import Parallel,delayed
 import yaml
+from argparse import ArgumentParser
 
 def groupRates(rates,vmx,srcTypeGroup,countyID,
                timeIntervalID,roadTypeID,avgSpeedBin):
@@ -52,16 +53,20 @@ def processGroup(rates,vmx,vmap,dmap,vt,hour,speed,rt,fips,group):
     ).emquant.sum().reset_index()
 
 
-def main(argv):
-    if len(sys.argv) != 5:
-        print('Usage:',argv[0],'vmxPath','ratesPath','year','numCPU')
-        sys.exit(1)
-
-    vmxPath = argv[1]
-    ratesPath = argv[2]
-    year = int(argv[3])
-    numCPU = int(argv[4])
-
+def main():
+    parser = ArgumentParser()
+    parser.add_argument('vmxPath',help = 'path to the vehicle mix CSV')
+    parser.add_argument('ratesPath',help = 'path to the emission rates CSV')
+    parser.add_argument('year',type = int,help = 'emission rates year')
+    parser.add_argument('numCPU',type = int,help = 'number of CPUs to use')
+    parser.add_argument('--dayOfTheWeek',default = 'WK')
+    args = parser.parse_args()
+    vmxPath = args.vmxPath
+    ratesPath = args.ratesPath
+    year = args.year
+    numCPU = args.numCPU
+    dayOfTheWeek = args.dayOfTheWeek
+    
     # read the vmt
     vmt = pd.read_csv('linkVMT.csv')
 
@@ -71,6 +76,7 @@ def main(argv):
 
     # read the rates
     rates = pd.read_csv(open(ratesPath))
+
     # rename hourID to timeIntervalID
     rates = rates.rename(columns = {'hourID':'timeIntervalID'})
 
@@ -112,7 +118,9 @@ def main(argv):
             dist = d
             
     # filter on year and weekday
-    vmx = vmx.query(f'yearID == {selectYear} & dayOfTheWeek == "WK"')
+    vmx = vmx.query(
+        f'yearID == {selectYear} & dayOfTheWeek == "{dayOfTheWeek}"'
+    )
     
     # vmx needs to have timeIntervalID,countyID columns
 
@@ -135,4 +143,4 @@ def main(argv):
     
 
 if __name__ == '__main__':
-    main(sys.argv)
+    main()
