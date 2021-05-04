@@ -71,6 +71,8 @@ def main(argv):
 
     # read the rates
     rates = pd.read_csv(open(ratesPath))
+    # rename hourID to timeIntervalID
+    rates = rates.rename(columns = {'hourID':'timeIntervalID'})
 
     # determine whether timeIntervals in linkVMT are hours and if not
     # exit with "Unimpelemented" error
