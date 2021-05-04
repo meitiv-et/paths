@@ -138,7 +138,7 @@ def main():
     pd.concat(results).groupby(
         ['linkID','pollutantID','fuelTypeID','sourceTypeID']
     ).emquant.sum().reset_index().to_csv(
-        f'emissions_{year}.csv',index = False
+        f'emissions_{year}_{dayOfTheWeek}.csv',index = False
     )
     
 

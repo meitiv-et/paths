@@ -45,20 +45,22 @@ source types.
 
 ### Output
 
-The script requires 4 command line arguments:
+The script accepts 4 required and 1 optional command line arguments:
 - pathToVMXcsv
 - pathToRatesCSV
 - year
 - numberOfCPUs (number of CPU cores to run on).  For example, while in
 the working directory, assuming that `computeEmissions.py`, `vmx.csv`,
 and `rates.csv` are in the parent directory:
+- --dayOfTheWeek (with "WK" as default)
+For example:
 ```bash
 $ cd ProjectDirectory
-$ python3 ../computeEmissions.py ../vmx.csv ../rates.csv 2020 18
+$ python3 ../computeEmissions.py ../vmx.csv ../rates.csv 2020 18 FR
 ```
-The single output of the script is `emissions_YEAR.csv` where YEAR is
-replaced by the 4 digit year supplied on the command line.  The
-columns are:
+The single output of the script is `emissions_YEAR_DY.csv` where YEAR is
+replaced by the 4 digit year supplied on the command line and DY by
+the dayOfThe week.  The columns of the emissions dataset are:
 - linkID composed of the origin and destination node IDs separated by
   a dash
 - pollutantID 
