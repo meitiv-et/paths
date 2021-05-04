@@ -27,7 +27,7 @@ source types.
    - yearID (4 digit year)
 3. The on-road vehile mix CSV must have the following columns:
    - yearID (4 digit year)
-   - dayOfTheWeek with possible values of [WK|FR|SA|"SU"] (WK refers
+   - dayOfTheWeek with possible values of [WK|FR|SA|SU] (WK refers
      to Monday through Thursday (inclusive)
    - roadTypeID
    - sourceTypeID
