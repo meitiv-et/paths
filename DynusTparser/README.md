@@ -31,12 +31,12 @@ should yield an executable `volumes.exe`
    column names: "linkID","roadTypeID","fips","length","speedLimit"
    and place it into the working directory.  The columns:
    - "linkID" is composed from the IDs of the origin and destination
-	  nodes separated by a dash, e.g. "2342-5673".
+     nodes separated by a dash, e.g. "2342-5673".
    - "roadTypeID" is the EPA MOVES road type: you will need to develop
       a mapping from the DynusT road types to the MOVES road types
       (more about this mapping in the `EmissionsCalculator` README.
-   - "fips" is the 5 digit county identifier into which most of the
-	  link happens to fall.
+   - "countyID" is the 5 digit county identifier into which most of the
+     link happens to fall.
    - "length" is in miles.
    - "speedLimit" is in mph.
    This repository contains a python3 script `makeLinks.py` which can
@@ -52,14 +52,15 @@ should yield an executable `volumes.exe`
    ```
 3. Optionally, one may prepare `elecIDs.txt` containing a list of
 vehicle IDs (one per line) to be removed from the DynusT roster before
-computing the aggregate link VMT.
+computing the aggregate link VMT.  This file must be placed in the
+project directory and will be read automatically if exists.
 
 ### Running the parser
 
 The parser requires two command line arguments: the first one is
 `aggInt`, the length (in minutes) of the time interval to aggregate
-volumes into.  The output will contain intervalIDs starting from 1 and
-ending with `1440/aggInt`.  The second command line argument is
+volumes into.  The output will contain timeIntervalIDs starting from 1
+and ending with `1440/aggInt`.  The second command line argument is
 `speedBin` which is the size of the speed bins in mph.  The highest
 possible speed is 80 mph.  Therefore, if, for example `speedBin = 5`,
 there will be 16 speed bins from 1 to 16 (inclusive).  In the below

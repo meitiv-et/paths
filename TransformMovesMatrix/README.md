@@ -1,8 +1,16 @@
 # MOVES matrix transformer.
 
-The script in this directory transforms the MOVES matrix emission
-rates from being sliced by the vehicle operating mode to being sliced
-by velocity bins using the MOVES defaut operating mode distribution.
+This directory deals with the MOVES matrix emission
+rates constructed by the School of Civil Engineering at the Georgia
+Tech and published by the CARTEEH at the Texas A\&M Transportation
+Instutute at [https://carteehdata.org/library/dataset/moves-matrix-texas-emissi-e6a3](https://carteehdata.org/library/dataset/moves-matrix-texas-emissi-e6a3).
+
+The script in this directory transforms the emission rates from being
+sliced by the vehicle operating mode to being sliced by velocity bins
+using the MOVES defaut operating mode distribution.  All MOVES
+datasets utilized here (including meteorology, and age distribution)
+are obtained directly from the SQL tables of the MOVES model
+downloaded from the EPA's website.
 
 ### Resources and input preparation
 1. Download the Excel dataset
@@ -48,3 +56,13 @@ well as the auxiliary files reside.  The script will output a single
 csv with transformed rates named `movesRates_YEAR-MONTH_FIPSLIST.csv`
 where YEAR and MONTH are those supplied on the command line and
 FIPSLIST is dash delimited list of the supplied FIPS.
+
+### Comment regarding the dummy "fuelTypeID" column in the constructed
+    emission rate dataset.
+
+The MOVES matrix emission rates aggregate all fuel types together
+using the MOVES default fuel type distributions by source type.
+However, the emissions calculator published here requires the
+"fuelTypeID" column.  Therefore the transformer script adds a dummy
+fuelTypeID column with value 0.  It can be safely ignored in the
+emission dataset that is produced by the emissions calculator.
