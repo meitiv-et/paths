@@ -57,8 +57,7 @@ csv with transformed rates named `movesRates_YEAR-MONTH_FIPSLIST.csv`
 where YEAR and MONTH are those supplied on the command line and
 FIPSLIST is dash delimited list of the supplied FIPS.
 
-### Comment regarding the dummy "fuelTypeID" column in the constructed
-    emission rate dataset.
+### Comment regarding the dummy "fuelTypeID" column in the constructed emission rate dataset.
 
 The MOVES matrix emission rates aggregate all fuel types together
 using the MOVES default fuel type distributions by source type.
