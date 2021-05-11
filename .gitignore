@@ -131,3 +131,7 @@ dmypy.json
 *.o
 *~
 *.exe
+aermet
+aerminute
+aersurface
+aermod
