@@ -80,7 +80,8 @@ To run the AERMOD pipeline one needs to prepare the following inputs
    ```bash
    $ python3 restoreIDs.py
    ```
-   This script will overwrite `receptorConc.csv` and replace the
-   receptor coordinates `"x","y"` with the `"receptorID"` column.  The
-   receptors can be matched to those in `receptors.geojson` by
+   This script has an optional '--epsg' argument in case you are using
+   a non-default EPSG.  It will overwrite `receptorConc.csv` and
+   replace the receptor coordinates `"x","y"` with the `"receptorID"`
+   column.  The receptors can be matched to those in `receptors.geojson` by
    `receptorID`.
