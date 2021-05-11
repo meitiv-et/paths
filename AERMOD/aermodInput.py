@@ -65,7 +65,6 @@ class AermodScenario(object):
         self.lineSources = pd.DataFrame(
             columns = ['sourceID','x1','y1','x2','y2','flux','width','geometry','buffers']
         )
-
         
     def getLinkGeometries(self,linksPath):
         # read the links
@@ -306,6 +305,9 @@ class AermodScenario(object):
     def readSources(self):
         try:
             self.lineSources = gpd.read_file('sources.geojson')
+            self.lineSources = self.lineSources.to_crs(
+                epsg = self.epsg
+            )
             # load the buffers from wkb
             self.lineSources['buffers'] = [
                 loads(poly) for poly in self.lineSources.buffers
@@ -327,6 +329,9 @@ class AermodScenario(object):
     def readReceptors(self):
         try:
             self.receptors = gpd.read_file('receptors.geojson')
+            self.receptors = self.receptors.to_crs(
+                epsg = self.epsg
+            )
             print('Read receptors.geojson')
             return True
         except:

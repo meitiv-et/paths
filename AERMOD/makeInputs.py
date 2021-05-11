@@ -18,7 +18,7 @@ parser.add_argument('dayOfTheMonth',type = int,
                     help = 'the day of the month on which to use the meteo data')
 parser.add_argument('--laneWidthInFeet',type = int,
                     help = 'optionally override the default 12 foot lanes')
-parser.add_argument('--epsg',type = int,
+parser.add_argument('--epsg',type = int,default = 3665,
                     help = 'optionally override the default epsg:3665, the unit must be "meter"')
 
 args = parser.parse_args()
