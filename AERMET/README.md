@@ -7,7 +7,7 @@ data necessary for running AERMOD.
 ### Installation
 1. Install unzip, gfortran, and python3
 ```bash
-$ sudo apt install unzip gfortran python3 python3-pip
+$ sudo apt install wget unzip gfortran python3 python3-pip
 ```
 2. Download and compile AERMET
 ```bash
@@ -31,7 +31,7 @@ $ gfortran -o ../aersurface -O2 *.o
 $ wget --no-check-certificate https://gaftp.epa.gov/Air/aqmg/SCRAM/models/met/aerminute/aerminute_15272.zip
 $ unzip -d AERMINUTE aerminute_15272.zip
 $ cd AERMINUTE
-$ fortran -O2 -o ../aerminute aerminute_15272.for
+$ gfortran -O2 -o ../aerminute aerminute_15272.for
 ```
 5. Install the required Python libraries
 ```bash

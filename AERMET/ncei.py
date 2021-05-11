@@ -66,15 +66,15 @@ class ISD(object):
     host = 'ftp.ncei.noaa.gov'
     directory = 'pub/data/noaa'
     baseURL = f'ftp://{host}/{directory}'
-    sfc_template = open('sfc_template.inp').read()
-    asf_template = open('asf_template.inp').read()
-    def __init__(self,year,month):
+    def __init__(self,year,month,home):
         self.year = int(year)
         self.month = int(month)
         self.monthAbbr = pd.to_datetime(
             f'{year}{str(month).zfill(2)}01'
         ).strftime('%b').upper()
 
+        self.sfc_template = open(os.path.join(home,'sfc_template.inp')).read()
+        self.asf_template = open(os.path.join(home,'asf_template.inp')).read()
         
     def getAllStations(self):
         # load the isd-history.csv

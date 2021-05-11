@@ -5,13 +5,15 @@ import io
 import pytz
 from datetime import datetime
 import math
+import os.path
 
 class ASOS(object):
     host = 'ftp.ncdc.noaa.gov'
     directory = 'pub/data/asos-onemin'
-    def __init__(self,year,month,tz):
+    def __init__(self,year,month,tz,home):
         self.year = year
         self.month = month
+        self.home = home
         # compute the UTC offset
         dt = pytz.timezone(tz).utcoffset(datetime(year,month,1))
         tz = '-' if dt.days < 0 else '+'
@@ -20,7 +22,7 @@ class ASOS(object):
         tz += str(minutes).zfill(2)
         # read the stations, filter on ASOS
         self.stations = pd.read_csv(
-            'stations.csv',
+            os.path.join(home,'stations.csv'),
             converters = {
                 'Archive Begins':pd.to_datetime,
                 'Archive Ends':pd.to_datetime
@@ -55,7 +57,7 @@ class ASOS(object):
             self.idx.insert(i,(x,y,x,y))
 
         # read the AERMINUTE input file template
-        self.template = open('aermin_template.inp').read()
+        self.template = open(os.path.join(home,'aermin_template.inp')).read()
                             
 
     def getAvailable(self):
@@ -99,7 +101,7 @@ class ASOS(object):
 
     def bestIsIFW(self):
         # download the ice free wind install dates
-        install = pd.read_csv('ice-wind.csv')
+        install = pd.read_csv(os.path.join(self.home,'ice-wind.csv'))
         install['INSTALL DATE'] = pd.to_datetime(
             install['INSTALL DATE'],errors = 'coerce'
         )

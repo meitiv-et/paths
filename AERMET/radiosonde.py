@@ -7,13 +7,14 @@ import geopy
 from geopy.distance import geodesic
 import re
 import sys
+import os.path
 import shapely.geometry as gm
 import geopandas as gpd
 
 class RadioSonde(object):
     formURL = 'https://ruc.noaa.gov/raobs/GetRaobs.cgi'
     delta = 3.
-    def __init__(self,year,month):
+    def __init__(self,year,month,home):
         self.year = year
         self.month = month
         self.data = {}
@@ -24,7 +25,7 @@ class RadioSonde(object):
         self.data['osort'] = 'Station Series Sort'
         self.data['bdate'] = f'{year}{str(month).zfill(2)}0100'
         self.data['edate'] = f'{year}{str(month).zfill(2)}3123'
-        self.template = open('ua_template.inp').read()
+        self.template = open(os.path.join(home,'ua_template.inp')).read()
 
 
     def getDataByState(self,state):

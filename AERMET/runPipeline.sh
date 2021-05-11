@@ -11,11 +11,13 @@ lat=$3
 lon=$4
 nlcd=$5
 
-./makeInputs.py $year $month $lat $lon $nlcd
-./aersurface aersurface.inp > /dev/null
-echo aerminute.inp|./aerminute > /dev/null
-./aermet surface.inp > /dev/null
-./aermet upperair.inp > /dev/null
-./aermet STAGE2.INP > /dev/null
-./aermet STAGE3.INP > /dev/null
+directory=`dirname $0`
+
+${directory}/makeInputs.py $year $month $lat $lon $nlcd
+${directory}/aersurface aersurface.inp > /dev/null
+echo aerminute.inp|${directory}/aerminute > /dev/null
+${directory}/aermet surface.inp > /dev/null
+${directory}/aermet upperair.inp > /dev/null
+${directory}/aermet STAGE2.INP > /dev/null
+${directory}/aermet ${directory}/STAGE3.INP > /dev/null
 

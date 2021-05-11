@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import sys
+import os
 
 if len(sys.argv) != 6:
     print('Usage:',sys.argv[0],'year','month','lat','lon','pathToNLCDzip')
@@ -12,9 +13,11 @@ lat = float(sys.argv[3])
 lon = float(sys.argv[4])
 archive = sys.argv[5]
 
+home = os.path.dirname(__file__)
+sys.path.append(home)
 import ncei
 
-isd = ncei.ISD(year,month)
+isd = ncei.ISD(year,month,home)
 isd.bestStation(lat,lon)
 print('Getting surface data for',isd.best['STATION NAME'])
 isd.getAndSaveSurfaceData()
@@ -26,7 +29,7 @@ with open('bestSurfElev.txt','w') as f:
 
 import radiosonde
 
-rsd = radiosonde.RadioSonde(year,month)
+rsd = radiosonde.RadioSonde(year,month,home)
 rsd.bestStation(lat,lon)
 print('Getting upper air data for',rsd.best.WBAN)
 rsd.saveData()
@@ -42,7 +45,7 @@ print('Using',tz)
 
 # make AERMINUTE input and get ASOS data
 import asos
-asos1min = asos.ASOS(year,month,tz)
+asos1min = asos.ASOS(year,month,tz,home)
 asos1min.getAvailable()
 asos1min.bestStation(lat,lon)
 print('Getting ASOS 1 min data for',asos1min.best)
@@ -53,7 +56,7 @@ asos1min.makeInput()
 twoDigitYear = year - 100*int(year/100)
 with open('STAGE2.INP','w') as f:
     f.write(
-        open('merge_template.inp').read().format(
+        open(os.path.join(home,'merge_template.inp')).read().format(
             asos_file = asos1min.hour_file,
             year = twoDigitYear,
             month = month
