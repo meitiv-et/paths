@@ -18,8 +18,8 @@ receptors['y'] = receptors.geometry.apply(
     lambda p: str(round(p.y,5)).strip('0')
 )
 
-assert set(receptors.x) == set(conc.x)
-assert set(receptors.y) == set(conc.y)
+#assert set(receptors.x) == set(conc.x)
+#assert set(receptors.y) == set(conc.y)
 
 # merge the receptorID
 print('Merging receptorIDs')
