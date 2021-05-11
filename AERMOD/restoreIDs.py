@@ -2,6 +2,11 @@
 
 import pandas as pd
 import geopandas as gpd
+from argparse import ArgumentParser
+
+parser = ArgumentParser()
+parser.add_argument('--epsg',default = 3665,type = int)
+args = parser.parse_args()
 
 concPath = 'receptorConc.csv'
 print(f'Reading {concPath}')
@@ -11,6 +16,7 @@ conc['y'] = conc.y.str.strip('0')
 
 print('Reading receptors.geojson')
 receptors = gpd.read_file('receptors.geojson')
+receptors = receptors.to_crs(epsg = args.epsg)
 receptors['x'] = receptors.geometry.apply(
     lambda p: str(round(p.x,5)).strip('0')
 )
@@ -28,7 +34,6 @@ conc = conc.merge(receptors[['receptorID','x','y']],on = ['x','y'])
 nAfter = len(conc)
 if nBefore != nAfter:
     print(f'{nBefore - nAfter} receptors were matched, exiting...')
-    sys.exit(1)
 
 # upload concentrations with receptorID (drop the un-needed 'x','y'
 # columns)
