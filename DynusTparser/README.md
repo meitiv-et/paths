@@ -77,7 +77,9 @@ $ ../volumes.exe 60 5
 
 The program `volumes.exe` will output two comma separated value files.
 1. `linkVMT.csv` with columns:
-   linkID,vehType,timeIntervalID,avgSpeedBinID,vmt
+   linkID,vehType,timeIntervalID,avgSpeedBinID,vmt.  The
+   timeIntervalID columns contains the IDs of the aggregation
+   intervals that start with 1 (not 0).
 2. `linkData.csv` with columns: linkID,vehType,metric,unit,value
    contains link metrics that are aggregated over the whole DynusT
    simulation time window.  Metrics include: VMT, delay, signalDelay,

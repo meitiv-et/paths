@@ -195,4 +195,6 @@ class MOVES(object):
     def outputRates(self,path):
         # add the dummy fuelTypeID column
         self.rates['fuelTypeID'] = 0
+        # add the yearID column
+        self.rates['yearID'] = self.year
         self.rates.to_csv(open(path,'w'),index = False)

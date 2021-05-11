@@ -41,8 +41,8 @@ def groupRates(rates,vmx,srcTypeGroup,countyID,
     ).emRate.sum().reset_index()
 
 
-def processGroup(rates,vmx,vmap,dmap,vt,hour,speed,rt,fips,group):
-    grRate = groupRates(rates,vmx,vmap[vt],fips,dmap[fips],hour,rt,speed)
+def processGroup(rates,vmx,vmap,vt,hour,speed,rt,fips,group):
+    grRate = groupRates(rates,vmx,vmap[vt],fips,hour,rt,speed)
     group = group.drop(columns = ['vehType']).merge(
         grRate,
         on = ['timeIntervalID','avgSpeedBinID','roadTypeID','countyID']
@@ -86,11 +86,9 @@ def main():
         print('Intervals other than 60 min long not yet implemented')
         sys.exit(1)
 
-    # rename timeIntervalID timeIntervalID
-    vmt = vmt.rename(columns = {'timeIntervalID':'timeIntervalID'})
-
     # read the vehType to sourceType map
-    vehTypeMap = yaml.load(open('vehTypeMap.yaml'))
+    vehTypeMap = yaml.load(open('vehTypeMap.yaml').read(),
+                           Loader = yaml.Loader)
 
     # filter on year
     rates = rates.query(f'yearID == {year}').drop(columns = ['yearID'])
@@ -121,14 +119,22 @@ def main():
     vmx = vmx.query(
         f'yearID == {selectYear} & dayOfTheWeek == "{dayOfTheWeek}"'
     )
-    
-    # vmx needs to have timeIntervalID,countyID columns
+
+    # detect whether the rates have a real or fake fuelTypeID column
+    if set(rates.fuelTypeID) == {0}:
+        # combine the diesel and gas vmx
+        vmx = vmx.groupby(
+            ['roadTypeID','sourceTypeID','dayOfTheWeek',
+             'yearID','countyID','timeIntervalID']
+        ).VMTmix.sum().reset_index()
+        # add a fuelTypeID = 0 columns
+        vmx['fuelTypeID'] = 0
 
     # group by
     # ['vehType','timeIntervalID','avgSpeedBinID','roadTypeID','countyID']
     # and compute the average rate for each group
     results = Parallel(n_jobs = numCPU)(
-        delayed(processGroup)(rates,vmx,vehTypeMap,distMap,*k,g)
+        delayed(processGroup)(rates,vmx,vehTypeMap,*k,g)
         for k,g in vmt.groupby(
             ['vehType','timeIntervalID','avgSpeedBinID',
              'roadTypeID','countyID']

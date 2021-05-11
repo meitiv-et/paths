@@ -9,9 +9,11 @@ source types.
 
 ### Input preparation
 
-1. `linkVMT.csv` produced by the DynusT parser can use used as is
-   (leave it in the working directory).
-2. The emission rates CSV must be prepared with the following columns
+1. `linkVMT.csv` produced by the DynusT parser can use used as is.
+2. `links.csv` used by the DynusT parser.  Copy both `links.csv` and
+   `linkVMT.csv` to the working directory from which the emissions
+   calculator will be run.
+3. The emission rates CSV must be prepared with the following columns
    whose meaning is parallel to those in the EPA MOVES model
    documentation:
    - pollutantID
@@ -21,26 +23,40 @@ source types.
    - hourID
    - roadTypeID
    - sourceTypeID
-   - fuelTypeID (1 - gasoline, 2 - diesel)
+   - fuelTypeID (1 - gasoline, 2 - diesel, 0 - combined: when using
+     the MOVES matrix)
    - ratePerDistance (in gram/mile)
    - countyID (5 digit county FIPS)
    - yearID (4 digit year)
-3. The on-road vehile mix CSV must have the following columns:
+4. The on-road vehile mix CSV must have the following columns:
    - yearID (4 digit year)
    - dayOfTheWeek with possible values of [WK|FR|SA|SU] (WK refers
      to Monday through Thursday (inclusive)
+   - timeIntervalID (which has to align with the link volumne
+     aggregation intervals)
    - roadTypeID
    - sourceTypeID
+   - fuelTypeID
    - countyID (5 digit FIPS)
    - VMTmix : fractions that must add up to 1 for every combination of
      all other attributes fixed *except* sourceTypeID
-4. `vehTypeMap.yaml` which cointains the mapping from the DynusT's
+5. `vehTypeMap.yaml` which cointains the mapping from the DynusT's
    vehicle types to MOVES source type ID groups in yaml format.  It
    must be placed in the working directory.  For example:
 	```yaml
-	1:[11,21,31,32]
-	2:[51,52,53,54]
-	3:[61,62]
+	1:
+	  - 11
+	  - 21
+	  - 31
+	  - 32
+	2:
+	  - 51
+	  - 52
+	  - 53
+	  - 54
+	3:
+	  - 61
+	  - 62
 	```
 
 ### Output
