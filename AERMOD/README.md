@@ -73,7 +73,9 @@ To run the AERMOD pipeline one needs to prepare the following inputs
    script will produce `receptorConc.csv` with
    `"x","y","concentrat","paf"` columns.  The concentrations are in
    micrograms per meter cubed.  The last column (paf) is population
-   attribitable asthma fraction which varies between 0 and 1.
+   attribitable asthma fraction which varies between 0 and 1.  The
+   source of the association between the average PM2.5 concentration
+   and asthma can be found in a manuscript entitled [Traffic related air pollution and the burden of childhood asthma in the contiguous United States in 2000 and 2010](https://pubmed.ncbi.nlm.nih.gov/30954275/).
 5. Restore receptor IDs
    ```bash
    $ python3 restoreIDs.py
