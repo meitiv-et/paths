@@ -9,7 +9,7 @@ from aermodConst import feet2meters
 
 parser = argparse.ArgumentParser()
 parser.add_argument('title',help = 'project title')
-parser.add_argument('aermetDirectory')
+parser.add_argument('aermetOutputDirectory')
 parser.add_argument('sourceGroupSize',type = int,
                     help = 'how many sources per AERMOD run')
 parser.add_argument('population',type = int,
@@ -25,7 +25,7 @@ args = parser.parse_args()
 scenario = AermodScenario(args.epsg,args.laneWidthInFeet)
 scenario.readSources()
 scenario.readReceptors()
-scenario.processAERMETfiles(args.aermetDirectory)
+scenario.processAERMETfiles(args.aermetOutputDirectory)
 scenario.constructAermodInputs(
     args.title,args.sourceGroupSize,args.population,args.dayOfTheMonth
 )

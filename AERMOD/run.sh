@@ -2,13 +2,14 @@
 
 numThreads=`nproc`
 numThreads=$((numThreads / 2))
+home=`dirname $0`
 
 runInput() {
     base=$1
-    aermod ${base}.inp /dev/null > /dev/null &&
+    ${home}/aermod ${base}.inp /dev/null > /dev/null &&
 	# remove empty lines
 	awk '$3>0' ${base}.out > ${base}_shrink.out &&
-	mv ${base}_shrink.out ${base}.out &&
+	/bin/mv ${base}_shrink.out ${base}.out &&
 	/bin/rm ${base}.inp
 }
 

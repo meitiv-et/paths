@@ -5,9 +5,9 @@ the AERMET pipeline to produce a set of receptor coordinates with the
 24 hour average PM2.5 concentrations.
 
 ### Installation
-1. Install `gfortran`
+1. Install `gfortran` and a tool to covert windows encoded files to unix
    ```bash
-   $ sudo apt install gfortran
+   $ sudo apt install gfortran dos2unix
    ```
 2. Install the required Python modules
    ```bash
@@ -15,10 +15,12 @@ the AERMET pipeline to produce a set of receptor coordinates with the
    ```
 2. Download and compile AERMOD (check for the latest version)
    ```bash
-   $ wget --no-check-certificate https://gaftp.epa.gov/Air/aqmg/SCRAM/models/preferred/aermod/aermod_source.zip 
-   $ cd aermod_source
-   $ for f in `grep '%COM' gfortran-aermod-64bit.bat|awk '{print $5}'`; do gfortran -O2 -c $f; done
-   $ gfortran -O2 -o ../aermod.exe *.o
+   $ wget --no-check-certificate https://gaftp.epa.gov/Air/aqmg/SCRAM/models/preferred/aermod/aermod_source.zip
+   $ unzip aermod_source.zip
+   $ cd aermod_source_XXXXX (replace XXXXX with the aermod version)
+   $ dos2unix gfortran*.bat
+   $ for f in `grep '%COM' gfortran*.bat|tr -d ' \t'|awk -F'%' '{print $NF}'`; do gfortran -O2 -c $f; done
+   $ gfortran -O2 -o ../aermod *.o
    ```
 
 ### Input preparation
