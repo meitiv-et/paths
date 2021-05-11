@@ -17,7 +17,7 @@ inpFiles=`ls *.inp`
 for inpFile in $inpFiles; do
     # wait if already fully loaded
     while [ `ps -C aermod|grep -v PID|wc -l` -ge $numThreads ]; do
-	sleep 30
+	sleep 10
     done
 
     base=`basename $inpFile .inp`
