@@ -141,21 +141,25 @@ public:
       double time = lexical_cast<double>(allVals[i + traversedNodes]);
       nodeArrivalTimes.push_back(startTime + time);
       double delay = lexical_cast<double>(allVals[i + 3*traversedNodes]);
-      if (signalDelays.empty()) {
-	signalDelays.push_back(delay);
-      } else {
-	signalDelays.push_back(delay - signalDelays.back());
-      }
+      // if (signalDelays.empty()) {
+      // 	signalDelays.push_back(delay);
+      // } else {
+      // 	signalDelays.push_back(delay - signalDelays.back());
+      // }
+      // format code C of VehTrajectory.dat does not have cumulative
+      // 	values
+      signalDelays.push_back(delay);
     }
     // parse toll if exists
     if (allVals.size()/traversedNodes == 5) {
       for (int i = 0; i < traversedNodes; ++i) {
 	double toll = lexical_cast<double>(allVals[i + 4*traversedNodes]);
-	if (tolls.empty()) {
-	  tolls.push_back(toll);
-	} else {
-	  tolls.push_back(toll - tolls.back());
-	}
+	// if (tolls.empty()) {
+	//   tolls.push_back(toll);
+	// } else {
+	//   tolls.push_back(toll - tolls.back());
+	// }
+	tolls.push_back(toll);
       }
     }
   }
