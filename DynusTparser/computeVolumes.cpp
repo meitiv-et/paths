@@ -280,8 +280,7 @@ public:
     for (int i = 0; i < trajectory.size(); ++i) {
       int Bnode = trajectory[i];
       double end = nodeArrivalTimes[i];
-      double linkDelay = frac*(end - start - \
-			       lnkFFT[make_pair(Anode,Bnode)]);
+      double linkDelay = end - start - frac*lnkFFT[make_pair(Anode,Bnode)];
       if (linkDelay > 0.) {
 	lb.fromNodeID = Anode;
 	lb.toNodeID = Bnode;
